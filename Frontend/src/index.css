@@ -2,10 +2,10 @@
   --font-family: "Rubik", sans-serif;
 
   --clr-text: #f8eded;
-  --clr-primary: #40534c;
-  --clr-accent-100: #d6bd98;
-  --clr-accent-200: #677d6a;
-  --clr-accent-300: #1a3636;
+  --clr-primary: #f8f4e1;
+  --clr-accent-100: #af8f6f;
+  --clr-accent-200: #74512d;
+  --clr-accent-300: #543310;
 
   --fw-regular: 400;
   --fw-semi-bold: 500;
@@ -15,10 +15,9 @@
   --fs-400: 1rem;
   --fs-500: 1.5rem;
   --fs-600: 1.875rem;
-  --fs-700: 2.5rem;
-  --fs-800: 3.5rem;
+  --fs-700: 2rem;
 
-  --fs-primary-heading: var(--fs-700);
+  --fs-primary-heading: var(--fs-600);
   --fs-secondary-heading: var(--fs-600);
   --fs-body: var(--fs-400);
   --fs-button: var(var(--fs-300));
@@ -26,10 +25,8 @@
 
 @media (min-width: 50em) {
   :root {
-    --fs-primary-heading: var(--fs-800);
-    --fs-secondary-heading: var(--fs-700);
-    --fs-600: 2.5rem;
-    --fs-700: 3.5rem;
+    --fs-primary-heading: var(--fs-600);
+    --fs-secondary-heading: var(--fs-500);
   }
 }
 
@@ -148,4 +145,17 @@ body {
 }
 .fs-large {
   font-size: var(--fs-600);
+}
+
+.bg-primary {
+  background-color: var(--clr-primary);
+}
+.bg-brown {
+  background-color: var(--clr-accent-100);
+}
+.bg-semi-brown {
+  background-color: var(--clr-accent-200);
+}
+.bg-dark-brown {
+  background-color: var(--clr-accent-300);
 }
