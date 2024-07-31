@@ -1,6 +1,6 @@
 const Information = () => {
   return (
-    <section>
+    <section className="padding-block-900">
       <div className="container">
         <div className="even-columns">
           <div>
@@ -13,9 +13,9 @@ const Information = () => {
               taste. Whether you're a casual reader or a literary aficionado,
               Gossamer helps you explore the vast landscape of literature.
             </p>
-            <button>Get Started</button>
-            <button>Why Gossamer?</button>
-            <button>Contact Us</button>
+            <button className="button primary-button">Get Started</button>
+            <button className="button">Why Gossamer?</button>
+            <button className="button">Contact Us</button>
           </div>
           <div>
             <img src="/images/logo.svg" alt="Gossamer" />

@@ -1,6 +1,6 @@
 const Features = () => {
   return (
-    <section>
+    <section className="padding-block-900">
       <div className="container">
         <div className="features-container bg-semi-brown">
           <div className="items">
