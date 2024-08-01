@@ -2,9 +2,9 @@ const Features = () => {
   return (
     <section className="padding-block-900">
       <div className="container">
-        <div className="features-container bg-semi-brown">
+        <div className="features-container">
           <div className="items">
-            <div className="item-box">
+            <div className="item-box bg-gray">
               <h3 className=" fs-600 fw-bold">
                 Personalized Book Recommendations:
               </h3>
@@ -15,7 +15,7 @@ const Features = () => {
                 that are just right for you.
               </article>
             </div>
-            <div className="item-box">
+            <div className="item-box bg-gray">
               <h3 className=" fs-600 fw-bold">
                 Community Reviews and Ratings:
               </h3>
@@ -26,7 +26,7 @@ const Features = () => {
                 opinions and discussions.
               </article>
             </div>
-            <div className="item-box">
+            <div className="item-box bg-gray">
               <h3 className=" fs-600 fw-bold">
                 Custom Reading Lists and Shelves:
               </h3>
@@ -37,7 +37,7 @@ const Features = () => {
                 manage your reading life with ease.
               </article>
             </div>
-            <div className="item-box">
+            <div className="item-box bg-gray">
               <h3 className=" fs-600 fw-bold">Author and Genre Insights:</h3>
               <article className="fs-300 fw-regular">
                 Dive deeper into the world of books with detailed insights into
