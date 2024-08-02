@@ -170,6 +170,7 @@ body {
 .nav-list {
   display: flex;
   gap: clamp(var(--size-500), 5vw, var(--size-800));
+  font-weight: var(--fw-semi-bold);
 }
 
 .nav-list a {
@@ -238,6 +239,18 @@ body {
   border: 0 !important;
 }
 
+.container {
+  --max-width: 1110px;
+  --padding: 1rem;
+
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  margin-inline: auto;
+}
+
+:where(.flow :not(:first-child)) {
+  margin-top: 3em;
+}
+
 .text-primary {
   color: var(--clr-text);
 }
@@ -297,14 +310,6 @@ body {
   .display-md-inline-flex {
     display: inline-flex;
   }
-}
-
-.container {
-  --max-width: 1110px;
-  --padding: 1rem;
-
-  width: min(var(--max-width), 100% - (var(--padding) * 2));
-  margin-inline: auto;
 }
 
 .even-columns {

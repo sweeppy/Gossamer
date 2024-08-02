@@ -3,10 +3,10 @@ const Information = () => {
     <section className="padding-block-900">
       <div className="container">
         <div className="even-columns">
-          <div>
-            <h1 className="fs-primary-heading fw-bold">
-              Gossamer: Your Gateway to the World of Books and Reviews
-            </h1>
+          <div className="flow">
+            <h2 className="fs-primary-heading fw-bold">
+              Your Gateway to the World of Books and Reviews
+            </h2>
             <p>
               Dive into a world of stories with Gossamer. Share reviews, browse
               curated book lists, and find recommendations tailored to your

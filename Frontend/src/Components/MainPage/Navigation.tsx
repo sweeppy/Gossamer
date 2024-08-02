@@ -10,7 +10,9 @@ const Navigation = () => {
     <header className="primary-header">
       <div className="container">
         <div className="nav-wrapper">
-          <img src="./images/logo-mini.svg" alt="Gossamer" />
+          <a href="#">
+            <img src="./images/logo-mini.svg" alt="Gossamer" />
+          </a>
           <button
             onClick={handleNavBtnClick}
             className="mobile-nav-toggle"
