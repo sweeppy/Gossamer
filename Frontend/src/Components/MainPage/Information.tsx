@@ -1,6 +1,6 @@
 const Information = () => {
   return (
-    <section className="padding-block-900">
+    <section className="">
       <div className="container">
         <div className="even-columns">
           <div className="flow">

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const Navigation = () => {
   const handleNavBtnClick = () => {
     const navigation = document.querySelector(".primary-navigation");
@@ -6,8 +8,26 @@ const Navigation = () => {
       : navigation?.setAttribute("aria-expanded", "true");
     navigation?.toggleAttribute("data-visible");
   };
+
+  useEffect(() => {
+    const header = document.querySelector(".primary-header");
+
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        header?.classList.remove("top");
+      } else {
+        header?.classList.add("top");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <header className="primary-header">
+    <header className="primary-header padding-block-300 top">
       <div className="container">
         <div className="nav-wrapper">
           <a href="#">

@@ -2,8 +2,9 @@
   font-family: "Rubik";
 
   --clr-text: #f7f7f7;
-  --clr-text-accent: #000000;
+  --clr-black: #242323;
   --clr-primary: #3f3f44;
+  --clr-primary-accent: #343439;
   --clr-accent-100: #4e4e56;
   --clr-accent-200: #00adb5;
 
@@ -70,6 +71,7 @@ html:focus-within {
 
 html,
 body {
+  padding-top: var(--size-700);
   height: 100%;
 }
 
@@ -154,7 +156,20 @@ body {
 /* Navigation */
 
 .primary-header {
-  padding-top: var(--size-600);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--clr-primary-accent);
+  border-bottom: 0.15rem solid var(--clr-black);
+  opacity: 0.99;
+}
+.top {
+  background-color: var(--clr-primary);
+  border: none;
+  opacity: 1;
 }
 
 .nav-wrapper {
@@ -300,6 +315,16 @@ body {
 }
 .padding-block-700 {
   padding-block: var(--size-700);
+}
+.padding-block-400 {
+  padding-block: var(--size-400);
+}
+.padding-block-300 {
+  padding-block: var(--size-300);
+}
+
+.margin-top-500 {
+  margin-top: var(--size-500);
 }
 
 .display-sm-none {
