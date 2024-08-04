@@ -1,8 +1,9 @@
 const Information = () => {
+  const marginRight = { marginRight: "1.5rem" };
   return (
     <section className="">
       <div className="container">
-        <div className="even-columns">
+        <div className="even-columns vertical-align-center">
           <div className="flow">
             <h2 className="fs-primary-heading fw-bold">
               Your Gateway to the World of Books and Reviews
@@ -13,8 +14,12 @@ const Information = () => {
               taste. Whether you're a casual reader or a literary aficionado,
               Gossamer helps you explore the vast landscape of literature.
             </p>
-            <button className="button primary-button">Get Started</button>
-            <button className="button">Why Gossamer?</button>
+            <button className="button primary-button" style={marginRight}>
+              Get Started
+            </button>
+            <button className="button" style={marginRight}>
+              Why Gossamer?
+            </button>
             <button className="button">Contact Us</button>
           </div>
           <div>
