@@ -120,10 +120,19 @@ picture {
 body {
   background-color: var(--clr-primary);
 }
+h1[data-main] {
+  max-width: 25ch;
+}
 
 p:not([class]) {
   opacity: 0.7;
   max-width: 45ch;
+}
+@media (max-width: 50em) {
+  p[data-full],
+  h1[data-main] {
+    max-width: 100ch;
+  }
 }
 
 article {
@@ -133,7 +142,7 @@ article {
 /* Button */
 
 .button {
-  display: inline-flex;
+  display: inline-block;
   cursor: pointer;
   border: 0;
   text-decoration: none;
@@ -177,6 +186,21 @@ article {
 .primary-button:hover,
 .primary-button:focus-visible {
   background-color: var(--clr-accent-button-hover);
+}
+
+:where(.horizontal-flow :not(:first-child)) {
+  margin-left: var(--horizontal-space, 1em);
+}
+
+/* Input */
+.input {
+  background-color: var(--clr-primary-accent);
+  border: 0;
+  border-radius: 100vmax;
+  padding: var(--size-200);
+  padding-left: var(--size-400);
+  color: var(--clr-text);
+  outline: none;
 }
 
 /* Navigation */
@@ -378,14 +402,15 @@ article {
 }
 
 .even-columns {
-  display: grid;
+  display: flex;
   gap: 1rem;
+  flex-direction: column-reverse;
 }
 
 @media (min-width: 50em) {
   .even-columns {
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
@@ -446,4 +471,22 @@ article {
 .social-list li:hover,
 .social-list li:focus {
   box-shadow: 0 0.5em 5em -0.5em var(--clr-text);
+}
+
+.align-text {
+  text-align: center;
+}
+
+@media (min-width: 50em) {
+  .align-text {
+    text-align: left;
+  }
+}
+
+/* Footer */
+.primary-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,4 +1,5 @@
 import Community from "./Community";
+import ContactUs from "./ContactUs";
 import Features from "./Features";
 import Information from "./Information";
 import Love from "./Love";
@@ -6,7 +7,7 @@ import Navigation from "./Navigation";
 
 const MainPage = () => {
   return (
-    <body>
+    <>
       <Navigation />
       <main>
         <Information />
@@ -14,7 +15,8 @@ const MainPage = () => {
         <Love />
         <Community />
       </main>
-    </body>
+      <ContactUs />
+    </>
   );
 };
 

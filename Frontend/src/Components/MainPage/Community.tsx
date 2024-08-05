@@ -2,7 +2,7 @@ const Community = () => {
   return (
     <section className="padding-block-900">
       <div className="container">
-        <div className="social-container upper-border padding-block-300">
+        <div className="social-container padding-block-300">
           <h2 className="fs-secondary-heading fw-bold">Community</h2>
           <ul role="list" className="social-list padding-block-300">
             <a href="">
