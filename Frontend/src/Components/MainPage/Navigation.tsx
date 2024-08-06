@@ -5,15 +5,25 @@ const Navigation = () => {
     const primaryNav = document.querySelector(".primary-navigation");
     const navToggle = document.querySelector(".mobile-nav-toggle");
 
-    navToggle?.addEventListener("click", () => {
+    const handleNavToggleClick = () => {
       console.log("click");
 
-      primaryNav?.hasAttribute("data-visible")
-        ? navToggle.setAttribute("aria-expanded", "false")
-        : navToggle?.setAttribute("aria-expanded", "true");
+      if (primaryNav?.hasAttribute("data-visible")) {
+        navToggle?.setAttribute("aria-expanded", "false");
+      } else {
+        navToggle?.setAttribute("aria-expanded", "true");
+      }
       primaryNav?.toggleAttribute("data-visible");
-    });
+    };
 
+    navToggle?.addEventListener("click", handleNavToggleClick);
+
+    return () => {
+      navToggle?.removeEventListener("click", handleNavToggleClick);
+    };
+  }, []);
+
+  useEffect(() => {
     const header = document.querySelector(".primary-header");
 
     const handleScroll = () => {
