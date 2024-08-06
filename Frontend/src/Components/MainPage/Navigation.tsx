@@ -10,8 +10,10 @@ const Navigation = () => {
 
       if (primaryNav?.hasAttribute("data-visible")) {
         navToggle?.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("no-scroll");
       } else {
         navToggle?.setAttribute("aria-expanded", "true");
+        document.body.classList.add("no-scroll");
       }
       primaryNav?.toggleAttribute("data-visible");
     };
@@ -55,13 +57,19 @@ const Navigation = () => {
           <nav className="primary-navigation">
             <ul role="list" className="nav-list" id="primary-navigation">
               <li>
-                <a href="#">Information</a>
+                <a href="#">News</a>
               </li>
               <li>
-                <a href="#">Features</a>
+                <a href="#">Guides & tutorials</a>
               </li>
               <li>
-                <a href="#">Community</a>
+                <a href="#">Sponsors</a>
+              </li>
+              <li>
+                <a href="#">Help Center</a>
+              </li>
+              <li>
+                <a href="#">About</a>
               </li>
             </ul>
           </nav>
