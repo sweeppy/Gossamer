@@ -38,6 +38,8 @@
   --fs-secondary-heading: var(--fs-600);
   --fs-body: var(--fs-400);
   --fs-button: var(--fs-300);
+
+  ---primary-nav-height: 64px;
 }
 
 @media (min-width: 50em) {
@@ -211,6 +213,7 @@ article {
   left: 0;
   right: 0;
   width: 100%;
+  height: var(---primary-nav-height);
   z-index: 1000;
   background-color: var(--clr-primary-accent);
   border-bottom: 0.15rem solid var(--clr-black);
@@ -254,18 +257,21 @@ article {
   .primary-navigation {
     display: none;
 
-    position: absolute;
+    position: fixed;
+    z-index: 999;
+    top: var(---primary-nav-height);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0 32px;
+    width: 100%;
+    background-color: var(--vp-nav-screen-bg-color);
+    overflow-y: auto;
+    transition: background-color 0.25s;
+    pointer-events: auto;
     padding: var(--size-800);
-    inset: 7rem var(--size-400) auto;
     font-size: var(--fs-400);
     background: var(--clr-primary);
-    border-radius: var(--size-100);
-    box-shadow: 0 0 0.75em rgb(0, 0, 0.5);
-  }
-
-  .primary-navigation::after {
-    content: "";
-    position: absolute;
   }
 
   .mobile-nav-toggle {
@@ -274,6 +280,12 @@ article {
     background: transparent;
     border: 0;
     padding: 0.5em;
+    top: var(--size-600);
+    right: var(--size-400);
+    background: transparent;
+
+    background-image: url(/icons/hamburger.svg);
+    background-repeat: no-repeat;
   }
 
   .nav-list {
@@ -285,10 +297,6 @@ article {
 
   .primary-navigation[data-visible] {
     display: block;
-  }
-
-  .mobile-nav-toggle .icon-close {
-    display: none;
   }
 }
 /* Utility classes */
