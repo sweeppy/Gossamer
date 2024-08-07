@@ -442,6 +442,17 @@ article {
   display: none;
 }
 
+.display-mobile {
+  display: none;
+  margin-top: var(--size-800);
+}
+
+@media (max-width: 50em) {
+  .display-mobile {
+    display: block;
+  }
+}
+
 @media (min-width: 50em) {
   .display-md-inline-flex {
     display: inline-flex;
@@ -463,7 +474,7 @@ article {
 
 .features-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--size-500);
 }
 
@@ -483,6 +494,12 @@ article {
 }
 
 @media (max-width: 50em) {
+  .features-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 32em) {
   .features-container {
     grid-template-columns: 1fr;
   }

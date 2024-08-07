@@ -57,10 +57,7 @@ const Navigation = () => {
           <nav className="primary-navigation">
             <ul role="list" className="nav-list" id="primary-navigation">
               <li>
-                <a href="#">News</a>
-              </li>
-              <li>
-                <a href="#">Guides & tutorials</a>
+                <a href="#">Updates</a>
               </li>
               <li>
                 <a href="#">Sponsors</a>
@@ -71,9 +68,12 @@ const Navigation = () => {
               <li>
                 <a href="#">About</a>
               </li>
+              <button className="button primary-button long-button display-mobile">
+                Login
+              </button>
             </ul>
           </nav>
-          <button className="button primary-button long-button | display-sm-none display-md-inline-flex">
+          <button className="button primary-button long-button display-sm-none | display-md-inline-flex">
             Login
           </button>
         </div>
