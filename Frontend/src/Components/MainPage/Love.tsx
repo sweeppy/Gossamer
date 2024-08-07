@@ -6,7 +6,7 @@ const Love = () => {
   } as CSSProperties & { "--flow-spacer": string };
 
   return (
-    <section>
+    <section className="deep-bottom">
       <div className="container">
         <div className="love-container flow" style={flowSpacerStyle}>
           <img src="/icons/heart.svg" alt="heart" />

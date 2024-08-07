@@ -5,7 +5,7 @@ const Features = () => {
     "--flow-spacer": "1em",
   } as CSSProperties;
   return (
-    <section className="padding-block-900">
+    <section className="padding-block-900 deep-bottom">
       <div className="container">
         <div className="features-container">
           <div className="item-box flow" style={flowSpace}>

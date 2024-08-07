@@ -1,13 +1,18 @@
 import { useEffect } from "react";
+import SocialList from "./SocialList";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const hanleLoginClick = () => {
+    navigate("/Login");
+  };
+
   useEffect(() => {
     const primaryNav = document.querySelector(".primary-navigation");
     const navToggle = document.querySelector(".mobile-nav-toggle");
 
     const handleNavToggleClick = () => {
-      console.log("click");
-
       if (primaryNav?.hasAttribute("data-visible")) {
         navToggle?.setAttribute("aria-expanded", "false");
         document.body.classList.remove("no-scroll");
@@ -55,7 +60,11 @@ const Navigation = () => {
             aria-expanded="false"
           ></button>
           <nav className="primary-navigation">
-            <ul role="list" className="nav-list" id="primary-navigation">
+            <ul
+              role="list"
+              className="nav-list FadeInTopSlide"
+              id="primary-navigation"
+            >
               <li>
                 <a href="#">Updates</a>
               </li>
@@ -68,13 +77,20 @@ const Navigation = () => {
               <li>
                 <a href="#">About</a>
               </li>
-              <button className="button primary-button long-button display-mobile">
-                Login
+              <SocialList className="mobile-hidden" />
+              <button
+                onClick={hanleLoginClick}
+                className="button primary-button long-button mobile-hidden"
+              >
+                Log in
               </button>
             </ul>
           </nav>
-          <button className="button primary-button long-button display-sm-none | display-md-inline-flex">
-            Login
+          <button
+            onClick={hanleLoginClick}
+            className="button primary-button long-button display-md-inline-flex | display-sm-none"
+          >
+            Log in
           </button>
         </div>
       </div>
