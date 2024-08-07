@@ -317,7 +317,7 @@ article {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--size-600);
+    gap: var(--size-400);
     text-align: left;
     font-weight: var(--fw-regular);
   }
@@ -359,6 +359,13 @@ article {
   height: 100%;
   width: min(var(--max-width), 100% - (var(--padding) * 2));
   margin-inline: auto;
+}
+
+.sm-img-container {
+  background-color: var(--clr-primary);
+  border-radius: var(--size-200);
+  padding: var(--size-200);
+  width: max-content;
 }
 
 .upper-border {
@@ -483,14 +490,6 @@ article {
   padding: var(--size-500);
   border-radius: var(--size-200);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.item-box h3 {
-  margin-bottom: var(--size-300);
-}
-
-.item-box article {
-  margin-top: var(--size-200);
 }
 
 @media (max-width: 50em) {
