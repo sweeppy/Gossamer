@@ -15,7 +15,8 @@
   --clr-button-hover: #63636bc7;
   --clr-accent-button-hover: #00c5cfdc;
 
-  --clr-google: #f8eded;
+  --clr-white: #f8eded;
+  --clr--white-hover: #d8cece;
 
   --fw-regular: 400;
   --fw-semi-bold: 500;
@@ -251,6 +252,7 @@ article {
   border-radius: 100vmax;
   padding: 0.75em 1em;
   line-height: 1;
+  text-wrap: nowrap;
   color: var(--clr-text);
   font-weight: var(--fw-bold);
   font-size: var(--fs-button);
@@ -263,11 +265,23 @@ article {
   background-color: var(--clr-button-hover);
 }
 
-.button[data-google],
-.button[data-apple] {
-  background-color: var(--clr-google);
+.button[data-auth] {
+  background-color: var(--clr-white);
   border-radius: var(--size-100);
   color: var(--clr-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button[data-auth]:hover,
+.button[data-auth]:focus {
+  background-color: var(--clr--white-hover);
+}
+
+.button[data-auth] img {
+  height: 15px;
+  width: 15px;
+  margin-right: var(--size-300);
 }
 
 .primary-button {
