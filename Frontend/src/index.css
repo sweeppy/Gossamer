@@ -1,5 +1,6 @@
 :root {
-  font-family: "Andika";
+  --ff-primary: "Open Sans", sans-serif;
+  --ff-rubik: "Rubik";
 
   --clr-text: #f7f7f7;
   --clr-white-primary: #fcf8f3;
@@ -22,6 +23,7 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
+  --fs-200: 0.75rem;
   --fs-300: 0.875rem;
   --fs-400: 1rem;
   --fs-500: 1.5rem;
@@ -67,6 +69,14 @@
   padding: 0;
   font: inherit;
 }
+h1 {
+  text-wrap: nowrap;
+}
+
+/* Remove outline */
+input {
+  outline: 0;
+}
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role="list"],
@@ -96,7 +106,7 @@ body {
 body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-family: var(--font-family);
+  font-family: var(--ff-primary);
 }
 
 /* A elements that don't have a class get default styles */
@@ -319,13 +329,12 @@ article {
 
 /* Input */
 .input {
-  background-color: var(--clr-primary-accent);
-  border: 0;
-  border-radius: 100vmax;
-  padding: var(--size-200);
-  padding-left: var(--size-400);
-  color: var(--clr-text);
-  outline: none;
+  border: none;
+  background: none;
+  width: 100%;
+  display: block;
+  resize: none;
+  padding: 0px;
 }
 
 /* Navigation */
@@ -462,6 +471,10 @@ article {
   overflow: hidden;
 }
 
+.rubik {
+  font-family: var(--ff-rubik);
+}
+
 .visually-hidden {
   position: absolute;
   position: absolute !important;
@@ -488,8 +501,29 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 300px;
+  padding: 0 20px;
 }
 
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: var(--fs-300);
+  line-height: var(--fs-600);
+  position: relative;
+  border-radius: var(--size-100);
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset;
+  background: transparent;
+  background-color: var(--clr-white);
+  cursor: text;
+  padding: 4px 10px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+.input-container:focus-within {
+  box-shadow: rgba(0, 123, 255, 0.5) 0 0 3px 2px inset;
+}
 .sm-img-container {
   background-color: var(--clr-primary);
   border-radius: var(--size-200);
@@ -693,4 +727,11 @@ article {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.sub-header {
+  display: block;
+  margin-bottom: 5px;
+  opacity: 0.4;
+  font-size: var(--fs-200);
 }
