@@ -527,8 +527,6 @@ article {
   background-color: var(--clr-white);
   cursor: text;
   padding: 2px 10px;
-  margin-top: 4px;
-  margin-bottom: 8px;
 }
 .input-container:focus-within {
   border-color: var(--clr-accent-200);
@@ -758,4 +756,13 @@ article {
 
 .light {
   box-shadow: 0 1em 5em -0.8em var(--clr-white-primary);
+}
+
+.display-none {
+  display: none !important;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--clr-accent-200);
 }
