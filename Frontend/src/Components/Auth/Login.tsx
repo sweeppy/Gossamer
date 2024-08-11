@@ -1,7 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import AlternativeLogin from './AlternativeLogin';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+	// Use navigation
+	const navigate = useNavigate();
+
 	// Email input logic
 	const [emailText, setEmailText] = useState('');
 	const handleEmailTextChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,14 +20,12 @@ const Login = () => {
 
 	// Check email in db
 	const isEmailExists = (email: string) => {
-		return true;
+		return false;
 	};
 
 	// Verification input logic
 	const [verificationCodeText, setVerificationCodeText] = useState('');
-	const handleVerificationCodeTextChange = (
-		e: ChangeEvent<HTMLInputElement>
-	) => {
+	const handleVerificationCodeTextChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setVerificationCodeText(e.target.value);
 	};
 
@@ -45,6 +47,11 @@ const Login = () => {
 		}
 	};
 
+	// Verification
+	const Verify = () => {
+		navigate('/CreateAccount');
+	};
+
 	return (
 		<>
 			<header className="primary-header padding-block-300 FadeInTopSlide">
@@ -56,20 +63,12 @@ const Login = () => {
 					</div>
 				</div>
 			</header>
-			<main
-				className="rubik"
-				style={{ overflow: 'auto', height: '100vh' }}
-			>
+			<main className="rubik" style={{ overflow: 'auto', height: '100vh' }}>
 				<div className="container auth-container">
-					<h1 className="fs-xl fw-bold FadeInTopSlide padding-block-900 delay-800">
-						Log in
-					</h1>
-					<AlternativeLogin className={'pushFromLeft delay-800'} />
-					<div
-						className="padding-block-700 pushFromRight delay-900"
-						style={{ width: '100%' }}
-					>
-						<label className="lable">Email</label>
+					<h1 className="fs-xl fw-bold FadeInTopSlide padding-block-900 delay-200">Log in</h1>
+					<AlternativeLogin className={'pushFromLeft delay-200'} />
+					<div className="padding-block-700 pushFromRight delay-200" style={{ width: '100%' }}>
+						<label className="label">Email</label>
 						<div className="input-container">
 							<input
 								type="email"
@@ -85,27 +84,20 @@ const Login = () => {
 					<button
 						data-auth
 						className={`
-              ${emailText ? 'light' : ''}
-              button pushFromLeft delay-500 fw-semi-bold
-              ${verify || showPasswordInput ? 'display-none' : ''}`}
+						${emailText ? 'light' : ''}
+						button pushFromLeft delay-300 fw-semi-bold
+						${verify || showPasswordInput ? 'display-none' : ''}`}
 						style={{ width: '100%' }}
 						onClick={handleContinueClick}
 					>
 						Continue
 					</button>
-					<div
-						className={`FadeInLeftSlide ${
-							verify ? '' : 'display-none'
-						}`}
-					>
-						<p
-							className="fs-xxs align padding-block-500"
-							style={{ opacity: 0.4, textAlign: 'center' }}
-						>
-							Please verify your email to continue. Check your
-							inbox for a verification code and enter it below.
+					<div className={`FadeInLeftSlide ${verify ? '' : 'display-none'}`}>
+						<p className="fs-xxs align padding-block-500" style={{ opacity: 0.4, textAlign: 'center' }}>
+							Please verify your email to continue. Check your inbox for a verification code and enter it
+							below.
 						</p>{' '}
-						<label className="lable">Verification code</label>
+						<label className="label">Verification code</label>
 						<div className="input-container">
 							<input
 								type="text"
@@ -117,10 +109,9 @@ const Login = () => {
 							/>
 						</div>
 						<button
+							onClick={Verify}
 							data-auth
-							className={`button padding-block-300 fw-semi-bold ${
-								verificationCodeText ? 'light' : ''
-							}`}
+							className={`button padding-block-300 fw-semi-bold ${verificationCodeText ? 'light' : ''}`}
 							style={{ width: '100%', marginTop: '1rem' }}
 						>
 							Verify email
@@ -128,15 +119,10 @@ const Login = () => {
 					</div>
 					<div
 						style={{ width: '100%' }}
-						className={`FadeInTopSlide ${
-							showPasswordInput ? '' : 'display-none'
-						}`}
+						className={`FadeInTopSlide ${showPasswordInput ? '' : 'display-none'}`}
 					>
-						<div
-							className="padding-block-300"
-							style={{ width: '100%' }}
-						>
-							<label className="lable">Password</label>
+						<div className="padding-block-300" style={{ width: '100%' }}>
+							<label className="label">Password</label>
 							<div className="input-container">
 								<input
 									type="password"
@@ -154,9 +140,7 @@ const Login = () => {
 						</div>
 						<button
 							data-auth
-							className={`button fw-semi-bold ${
-								passwordText ? 'light' : ''
-							}`}
+							className={`button fw-semi-bold ${passwordText ? 'light' : ''}`}
 							style={{ width: '100%' }}
 							onClick={handleContinueClick}
 						>
