@@ -6,10 +6,25 @@ const Login = () => {
 	const [emailText, setEmailText] = useState('');
 	const handleEmailTextChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setEmailText(e.target.value);
-		if (verify) {
+		if (verify || showPasswordInput) {
 			setVerify(false);
+			setShowPasswordInput(false);
 			setVerificationCodeText('');
+			setPasswordText('');
 		}
+	};
+
+	// Check email in db
+	const isEmailExists = (email: string) => {
+		return true;
+	};
+
+	// Verification input logic
+	const [verificationCodeText, setVerificationCodeText] = useState('');
+	const handleVerificationCodeTextChange = (
+		e: ChangeEvent<HTMLInputElement>
+	) => {
+		setVerificationCodeText(e.target.value);
 	};
 
 	// Password logic
@@ -18,16 +33,16 @@ const Login = () => {
 		setPasswordText(e.target.value);
 	};
 
-	// Verification input logic
-	const [verificationCodeText, setVerificationCodeText] = useState('');
-	const handleVerificationCodeTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setVerificationCodeText(e.target.value);
-	};
-
 	//Continue logic
 	const [verify, setVerify] = useState(false);
+	const [showPasswordInput, setShowPasswordInput] = useState(false);
+
 	const handleContinueClick = () => {
-		setVerify(true);
+		if (isEmailExists(emailText)) {
+			setShowPasswordInput(true);
+		} else {
+			setVerify(true);
+		}
 	};
 
 	return (
@@ -41,11 +56,19 @@ const Login = () => {
 					</div>
 				</div>
 			</header>
-			<main className="rubik" style={{ overflow: 'auto', height: '100vh' }}>
+			<main
+				className="rubik"
+				style={{ overflow: 'auto', height: '100vh' }}
+			>
 				<div className="container auth-container">
-					<h1 className="fs-xl fw-bold FadeInTopSlide padding-block-900 delay-800">Log in</h1>
+					<h1 className="fs-xl fw-bold FadeInTopSlide padding-block-900 delay-800">
+						Log in
+					</h1>
 					<AlternativeLogin className={'pushFromLeft delay-800'} />
-					<div className="padding-block-700 pushFromRight delay-900" style={{ width: '100%' }}>
+					<div
+						className="padding-block-700 pushFromRight delay-900"
+						style={{ width: '100%' }}
+					>
 						<label className="lable">Email</label>
 						<div className="input-container">
 							<input
@@ -64,16 +87,23 @@ const Login = () => {
 						className={`
               ${emailText ? 'light' : ''}
               button pushFromLeft delay-500 fw-semi-bold
-              ${verify ? 'display-none' : ''}`}
+              ${verify || showPasswordInput ? 'display-none' : ''}`}
 						style={{ width: '100%' }}
 						onClick={handleContinueClick}
 					>
 						Continue
 					</button>
-					<div className={`FadeInLeftSlide ${verify ? '' : 'display-none'}`}>
-						<p className="fs-xxs align padding-block-500" style={{ opacity: 0.4, textAlign: 'center' }}>
-							Please verify your email to continue. Check your inbox for a verification code and enter it
-							below.
+					<div
+						className={`FadeInLeftSlide ${
+							verify ? '' : 'display-none'
+						}`}
+					>
+						<p
+							className="fs-xxs align padding-block-500"
+							style={{ opacity: 0.4, textAlign: 'center' }}
+						>
+							Please verify your email to continue. Check your
+							inbox for a verification code and enter it below.
 						</p>{' '}
 						<label className="lable">Verification code</label>
 						<div className="input-container">
@@ -88,42 +118,51 @@ const Login = () => {
 						</div>
 						<button
 							data-auth
-							className={`button padding-block-300 ${verificationCodeText ? 'light' : ''}
-                 fw-semi-bold`}
+							className={`button padding-block-300 fw-semi-bold ${
+								verificationCodeText ? 'light' : ''
+							}`}
 							style={{ width: '100%', marginTop: '1rem' }}
 						>
 							Verify email
 						</button>
 					</div>
-					<div className="padding-block-300 pushFromRight delay-900" style={{ width: '100%' }}>
-						<label className="lable">Password</label>
-						<div className="input-container">
-							<input
-								type="password"
-								autoComplete="password"
-								spellCheck="false"
-								className="input"
-								placeholder="Enter your password..."
-								value={passwordText}
-								onChange={handlePasswordChange}
-							/>
-						</div>
-						<a className="link fs-xxs" href="">
-							Forgot your password?
-						</a>
-					</div>
-					<button
-						data-auth
-						className={`
-            ${passwordText ? 'light' : ''}
-            ${verify ? 'display-none' : ''}
-            button pushFromLeft delay-500 fw-semi-bold
-            `}
+					<div
 						style={{ width: '100%' }}
-						onClick={handleContinueClick}
+						className={`FadeInTopSlide ${
+							showPasswordInput ? '' : 'display-none'
+						}`}
 					>
-						Continue with password
-					</button>
+						<div
+							className="padding-block-300"
+							style={{ width: '100%' }}
+						>
+							<label className="lable">Password</label>
+							<div className="input-container">
+								<input
+									type="password"
+									autoComplete="password"
+									spellCheck="false"
+									className="input"
+									placeholder="Enter your password..."
+									value={passwordText}
+									onChange={handlePasswordChange}
+								/>
+							</div>
+							<a className="link fs-xxs" href="">
+								Forgot your password?
+							</a>
+						</div>
+						<button
+							data-auth
+							className={`button fw-semi-bold ${
+								passwordText ? 'light' : ''
+							}`}
+							style={{ width: '100%' }}
+							onClick={handleContinueClick}
+						>
+							Continue with password
+						</button>
+					</div>
 				</div>
 			</main>
 		</>
