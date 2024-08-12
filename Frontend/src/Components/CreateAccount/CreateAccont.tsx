@@ -21,8 +21,8 @@ const CreateAccont = () => {
 	} as CSSProperties;
 
 	return (
-		<main>
-			<div className="auth-container container md-width">
+		<main className="full-height">
+			<div className="auth-container container md-width auto-overflow">
 				<div className="padding-block-300 rubik text-center flow scaleIn" style={flowSpace}>
 					<h1 className="fs-primary-heading fw-semi-bold ">Create a profile</h1>
 					<h2 className="fw-regular">This is how you introduce yourself</h2>
@@ -42,8 +42,8 @@ const CreateAccont = () => {
 						/>
 					</div>
 				</div>
-				<div className="even-columns max-width fadeInBottomSlide delay-500">
-					<div className="half-width">
+				<div className="even-columns full-width fadeInBottomSlide delay-500">
+					<div data-input className="half-width">
 						<div className="padding-block-200">
 							<label className="label">Username</label>
 							<div data-no-background className="input-container">
@@ -57,7 +57,7 @@ const CreateAccont = () => {
 							</div>
 						</div>
 					</div>
-					<div className="half-width">
+					<div data-input className="half-width">
 						<div className="padding-block-200">
 							<label className="label">Name</label>
 							<div data-no-background className="input-container">
@@ -74,12 +74,15 @@ const CreateAccont = () => {
 						</div>
 					</div>
 				</div>
-				<div className="half-width padding-block-700 clever-push delay-500">
+				<div data-input className="half-width padding-block-700 clever-push delay-500">
 					<label className="label">Set your password</label>
 					<div data-no-background className="input-container">
 						<input type="password" className="input" placeholder="Enter your password..." />
 					</div>
 				</div>
+				<button data-auth className="button fw-semi-bold long-button deep-bottom space-bottom half-width">
+					Continue
+				</button>
 			</div>
 		</main>
 	);

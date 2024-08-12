@@ -259,6 +259,7 @@ article {
 }
 
 .fadeIn {
+	opacity: 0;
 	animation: fadeIn 1s ease-in-out forwards;
 }
 
@@ -542,15 +543,26 @@ article {
 }
 /* Utility classes */
 
-.max-width {
+.full-width {
 	width: 100%;
 }
 .half-width {
 	width: 50%;
 }
+@media (max-width: 50em) {
+	.half-width[data-input] {
+		width: 80%;
+	}
+}
+.full-height {
+	height: 100vh;
+}
 
 .no-scroll {
 	overflow: hidden;
+}
+.auto-overflow {
+	overflow: scroll;
 }
 
 .rubik {
@@ -726,12 +738,24 @@ article {
 
 .even-columns {
 	display: flex;
-	gap: 1rem;
+	flex-direction: column;
+	align-items: center;
+}
+.col-reverse {
 	flex-direction: column-reverse;
+}
+
+.gap-1 {
+	gap: 1rem;
+}
+
+.space-bottom {
+	margin-bottom: 1rem;
 }
 
 @media (min-width: 50em) {
 	.even-columns {
+		gap: 1rem;
 		flex-direction: row;
 		justify-content: space-between;
 	}

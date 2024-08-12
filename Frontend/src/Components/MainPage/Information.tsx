@@ -7,7 +7,7 @@ const Information = () => {
 	return (
 		<section className="padding-block-900">
 			<div className="container ">
-				<div className="even-columns align-center">
+				<div className="even-columns col-reverse gap-1 align-center">
 					<div className="flow responsive-text-center">
 						<h1
 							data-main
