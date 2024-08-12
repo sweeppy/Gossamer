@@ -11,7 +11,7 @@ const Information = () => {
 					<div className="flow responsive-text-center">
 						<h1
 							data-main
-							className="fs-primary-heading fw-bold FadeInLeftSlide delay-500"
+							className="fs-primary-heading fw-bold fadeInLeftSlide delay-500"
 							style={{ opacity: '0' }}
 						>
 							Your Gateway to the World of Friendship
@@ -22,7 +22,7 @@ const Information = () => {
 							you connect with people who share your passions. Join our community and make meaningful
 							connections through the activities you love!
 						</p>
-						<div className="horizontal-flow topSlide FadeInTopSlide delay-1500" style={flowSpace}>
+						<div className="horizontal-flow topSlide fadeInTopSlide delay-1500" style={flowSpace}>
 							<button className="button primary-button">Get Started</button>
 							<button className="button">Why Gossamer?</button>
 							<button className="button">Contact Us</button>

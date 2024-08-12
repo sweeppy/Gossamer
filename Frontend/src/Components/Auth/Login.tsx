@@ -54,7 +54,7 @@ const Login = () => {
 
 	return (
 		<>
-			<header className="primary-header padding-block-300 FadeInTopSlide">
+			<header className="primary-header padding-block-300 fadeInTopSlide">
 				<div className="container">
 					<div className="nav-wrapper">
 						<a href="/">
@@ -65,7 +65,7 @@ const Login = () => {
 			</header>
 			<main className="rubik" style={{ overflow: 'auto', height: '100vh' }}>
 				<div className="container auth-container">
-					<h1 className="fs-xl fw-bold FadeInTopSlide padding-block-900 delay-200">Log in</h1>
+					<h1 className="fs-xl fw-bold fadeInTopSlide padding-block-900 delay-200">Log in</h1>
 					<AlternativeLogin className={'pushFromLeft delay-200'} />
 					<div className="padding-block-700 pushFromRight delay-200" style={{ width: '100%' }}>
 						<label className="label">Email</label>
@@ -92,7 +92,7 @@ const Login = () => {
 					>
 						Continue
 					</button>
-					<div className={`FadeInLeftSlide ${verify ? '' : 'display-none'}`}>
+					<div className={`fadeInLeftSlide ${verify ? '' : 'display-none'}`}>
 						<p className="fs-xxs align padding-block-500" style={{ opacity: 0.4, textAlign: 'center' }}>
 							Please verify your email to continue. Check your inbox for a verification code and enter it
 							below.
@@ -119,7 +119,7 @@ const Login = () => {
 					</div>
 					<div
 						style={{ width: '100%' }}
-						className={`FadeInTopSlide ${showPasswordInput ? '' : 'display-none'}`}
+						className={`fadeInTopSlide ${showPasswordInput ? '' : 'display-none'}`}
 					>
 						<div className="padding-block-300" style={{ width: '100%' }}>
 							<label className="label">Password</label>
