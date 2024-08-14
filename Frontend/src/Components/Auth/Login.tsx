@@ -84,11 +84,12 @@ const Login = () => {
 					<button
 						data-auth
 						className={`
-						${emailText ? 'light' : ''}
-						button pushFromLeft delay-300 fw-semi-bold
+						${emailText ? 'light' : 'disabled'}
+						button deep-bottom fw-semi-bold
 						${verify || showPasswordInput ? 'display-none' : ''}`}
 						style={{ width: '100%' }}
 						onClick={handleContinueClick}
+						disabled={!emailText}
 					>
 						Continue
 					</button>
@@ -111,7 +112,10 @@ const Login = () => {
 						<button
 							onClick={Verify}
 							data-auth
-							className={`button padding-block-300 fw-semi-bold ${verificationCodeText ? 'light' : ''}`}
+							className={`button padding-block-300 fw-semi-bold ${
+								verificationCodeText ? 'light' : 'disabled'
+							}`}
+							disabled={!verificationCodeText}
 							style={{ width: '100%', marginTop: '1rem' }}
 						>
 							Verify email

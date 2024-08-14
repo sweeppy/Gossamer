@@ -276,6 +276,7 @@ article {
 }
 
 .deep-bottom {
+	transform: translateY(500px);
 	animation: slideFromDeepBottom 1s ease-in-out forwards;
 }
 .pushFromLeft {
@@ -562,7 +563,7 @@ article {
 	overflow: hidden;
 }
 .auto-overflow {
-	overflow: scroll;
+	overflow: auto;
 }
 
 .rubik {
@@ -850,6 +851,9 @@ article {
 
 .light {
 	box-shadow: 0 1em 5em -0.8em var(--clr-white-primary);
+}
+.disabled {
+	opacity: 0.5;
 }
 
 .display-none {

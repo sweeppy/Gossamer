@@ -3,7 +3,6 @@ import { ChangeEvent, CSSProperties, useState } from 'react';
 const CreateAccont = () => {
 	// Upload image logic
 	const [imagePath, setImagePath] = useState<string>('/icons/face.svg');
-
 	const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -12,6 +11,45 @@ const CreateAccont = () => {
 				setImagePath(reader.result as string);
 			};
 			reader.readAsDataURL(file);
+		}
+	};
+
+	// Username input logic
+	const [username, setUsername] = useState('');
+	const handleChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
+		setUsername(e.target.value);
+	};
+
+	// Name input logic
+	const [name, setName] = useState('');
+	const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+		setName(e.target.value);
+	};
+
+	// Surname input logic
+	const [surname, setSurname] = useState('');
+	const handleChangeSurname = (e: ChangeEvent<HTMLInputElement>) => {
+		setSurname(e.target.value);
+	};
+
+	// Patronymic imput logic
+	const [patronymic, setPatronymic] = useState('');
+	const handleChangePatronymic = (e: ChangeEvent<HTMLInputElement>) => {
+		setPatronymic(e.target.value);
+	};
+
+	// Password input logic
+	const [password, setPassword] = useState('');
+	const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+		setPassword(e.target.value);
+	};
+
+	// Continue logic
+	const readyToContinue = () => {
+		if (username && name && surname && password) {
+			return true;
+		} else {
+			return false;
 		}
 	};
 
@@ -47,13 +85,25 @@ const CreateAccont = () => {
 						<div className="padding-block-200">
 							<label className="label">Username</label>
 							<div data-no-background className="input-container">
-								<input className="input" type="text" placeholder="Enter your username..." />
+								<input
+									className="input"
+									type="text"
+									placeholder="Enter your username..."
+									value={username}
+									onChange={handleChangeUsername}
+								/>
 							</div>
 						</div>
 						<div className="padding-block-200">
 							<label className="label">Surname</label>
 							<div data-no-background className="input-container">
-								<input className="input" type="text" placeholder="Enter your surname..." />
+								<input
+									className="input"
+									type="text"
+									placeholder="Enter your surname..."
+									value={surname}
+									onChange={handleChangeSurname}
+								/>
 							</div>
 						</div>
 					</div>
@@ -61,7 +111,13 @@ const CreateAccont = () => {
 						<div className="padding-block-200">
 							<label className="label">Name</label>
 							<div data-no-background className="input-container">
-								<input className="input" type="text" placeholder="Enter your name..." />
+								<input
+									className="input"
+									type="text"
+									placeholder="Enter your name..."
+									value={name}
+									onChange={handleChangeName}
+								/>
 							</div>
 						</div>
 						<div className="padding-block-200">
@@ -69,7 +125,13 @@ const CreateAccont = () => {
 								<abbr title="If you have">Patronymic *</abbr>
 							</label>
 							<div data-no-background className="input-container">
-								<input className="input" type="text" placeholder="Enter your patronymic..." />
+								<input
+									className="input"
+									type="text"
+									placeholder="Enter your patronymic..."
+									value={patronymic}
+									onChange={handleChangePatronymic}
+								/>
 							</div>
 						</div>
 					</div>
@@ -77,10 +139,22 @@ const CreateAccont = () => {
 				<div data-input className="half-width padding-block-700 clever-push delay-500">
 					<label className="label">Set your password</label>
 					<div data-no-background className="input-container">
-						<input type="password" className="input" placeholder="Enter your password..." />
+						<input
+							type="password"
+							className="input"
+							placeholder="Enter your password..."
+							value={password}
+							onChange={handleChangePassword}
+						/>
 					</div>
 				</div>
-				<button data-auth className="button fw-semi-bold long-button deep-bottom space-bottom half-width">
+				<button
+					data-auth
+					className={`button fw-semi-bold long-button deep-bottom space-bottom half-width
+					${readyToContinue() ? 'light' : 'disabled'}`}
+					disabled={!readyToContinue()}
+					onClick={() => console.log('click')}
+				>
 					Continue
 				</button>
 			</div>
