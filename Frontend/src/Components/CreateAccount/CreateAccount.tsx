@@ -12,6 +12,7 @@ const CreateAccount = () => {
 	const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
+			setCropper(null);
 			const reader = new FileReader();
 			reader.onload = () => {
 				setCroppedImage(reader.result as string);
@@ -19,6 +20,7 @@ const CreateAccount = () => {
 			};
 			reader.readAsDataURL(file);
 		}
+		e.target.value = '';
 	};
 
 	const handleCrop = () => {
@@ -30,20 +32,20 @@ const CreateAccount = () => {
 			const croppedImageBase64 = croppedCanvas.toDataURL('image/png');
 			setCroppedImage(croppedImageBase64);
 			setShowCropper(false);
-
-			// Post request to save image
-			axios
-				.post('/api/profile/upload-image', {
-					image: croppedImageBase64,
-				})
-				.then((response) => {
-					console.log(response.data);
-				})
-				.catch((error) => {
-					console.error('Error uploading the image:', error);
-				});
 		}
 	};
+
+	// Post request to save image
+	/*axios
+		.post('/api/profile/upload-image', {
+			image: croppedImageBase64,
+		})
+		.then((response) => {
+			console.log(response.data);
+		})
+		.catch((error) => {
+			console.error('Error uploading the image:', error);
+		}); */
 
 	// Username input change
 	const [username, setUsername] = useState('');
