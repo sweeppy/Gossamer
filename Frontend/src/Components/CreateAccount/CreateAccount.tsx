@@ -1,7 +1,6 @@
 import { ChangeEvent, CSSProperties, useState } from 'react';
 import { Cropper } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
-import axios from 'axios';
 
 const CreateAccount = () => {
 	// Upload image
