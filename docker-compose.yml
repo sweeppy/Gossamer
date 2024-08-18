@@ -1,0 +1,20 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: "3.4"
+
+services:
+  authservice:
+    image: authservice
+    build:
+      context: .
+      dockerfile: Backend/Microservices/auth-service/Dockerfile
+    ports:
+      - 5280:5280
+
+  userservice:
+    image: userservice
+    build:
+      context: .
+      dockerfile: Backend/Microservices/user-service/Dockerfile
+    ports:
+      - 5081:5081
