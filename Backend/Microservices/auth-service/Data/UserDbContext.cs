@@ -16,7 +16,7 @@ namespace auth_service.src.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("UserConnection"));
+            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("UserServiceConnection"));
         }
 
         public DbSet<User> Users { get; set; }
