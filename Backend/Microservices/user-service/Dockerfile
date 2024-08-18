@@ -7,7 +7,7 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG configuration=Debug
+ARG configuration=Release
 WORKDIR /src
 COPY ["Backend/Microservices/user-service/user-service.csproj", "Backend/Microservices/user-service/"]
 RUN dotnet restore "Backend/Microservices/user-service/user-service.csproj"

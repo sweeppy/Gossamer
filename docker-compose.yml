@@ -18,3 +18,11 @@ services:
       dockerfile: Backend/Microservices/user-service/Dockerfile
     ports:
       - 5081:5081
+
+  apigateway:
+    image: apigateway
+    build:
+      context: .
+      dockerfile: Backend/ApiGateway/Dockerfile
+    ports:
+      - 5078:5078

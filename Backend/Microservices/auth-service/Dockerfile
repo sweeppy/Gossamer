@@ -7,7 +7,7 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG configuration=Debug
+ARG configuration=Release
 WORKDIR /src
 COPY ["Backend/Microservices/auth-service/auth-service.csproj", "Backend/Microservices/auth-service/"]
 RUN dotnet restore "Backend/Microservices/auth-service/auth-service.csproj"
