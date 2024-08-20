@@ -1,4 +1,6 @@
 using auth_service.Configuration.JWT;
+using auth_service.Services.Implementations;
+using auth_service.Services.Interfaces;
 using auth_service.src.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ CustomJwtConfiguration.AddCustomJwtAuthentication(builder.Services, builder.Conf
 builder.Services.AddScoped<UserDbContext>();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 
