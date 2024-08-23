@@ -3,11 +3,15 @@ using auth_service.Configuration.JWT;
 using auth_service.Services.Implementations;
 using auth_service.Services.Interfaces;
 using auth_service.src.Data;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gossamer API", Version = "v1" });
+});
 
 // Add JWT authentication
 CustomJwtConfiguration.AddCustomJwtAuthentication(builder.Services, builder.Configuration);
@@ -18,12 +22,14 @@ builder.Configuration.AddUserSecrets<Program>();
 // Initialize dependences in static details (SD) class
 SD.Initialize(builder.Configuration);
 
-// Dependences
+// Dependency injection
 builder.Services.AddScoped<UserDbContext>();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IVerify, VerifyService>();
+
+builder.Services.AddScoped<IInitializeAccount, InitializeAccount>();
 
 
 
@@ -32,10 +38,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gossamer API V1");
+    });
 }
+
+app.UseRouting();
 
 app.UseAuthentication();
 
+app.MapControllers();
 app.Run();
 

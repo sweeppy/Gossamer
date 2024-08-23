@@ -15,7 +15,7 @@ namespace auth_service.Configuration.JWT
                 o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(o =>
             {
-                var SignKey = Encoding.UTF8.GetBytes(configuration.GetSection("JwtSetting:SignKey").Value);
+                var SignKey = Encoding.UTF8.GetBytes(configuration.GetSection("JwtSettings:SignKey").Value);
                 o.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,

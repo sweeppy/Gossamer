@@ -9,7 +9,7 @@
                 Errors = new Dictionary<string, string[]>();
             }
 
-            public ValidateException(IEnumerable<ValidateFailures> failures)
+            public ValidateException(IEnumerable<ValidateFailure> failures)
                 : this()
             {
                 Errors = failures
@@ -18,12 +18,12 @@
             }
         }
 
-        public class ValidateFailures
+        public class ValidateFailure
         {
             public string PropertyName { get; set; }
             public string ErrorMessage { get; set; }
 
-            public ValidateFailures(string propertyName, string errorMessage)
+            public ValidateFailure(string propertyName, string errorMessage)
             {
                 PropertyName = propertyName;
                 ErrorMessage = errorMessage;
