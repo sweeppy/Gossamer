@@ -1,4 +1,6 @@
+using auth_service.Entities;
+
 namespace auth_service.Dto.Auth
 {
-    public record RegisterUserRequest(UserInfoRequest userInfo, string password);
+    public record RegisterUserRequest(UserInfo userInfo, string password);
 }
