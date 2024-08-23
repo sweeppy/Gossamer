@@ -49,7 +49,7 @@ namespace auth_service.Services.Implementations
                 from: SD.WorkEmail,
                 to: email,
                 subject: "Gossamer verification code",
-                verificationCode
+                body: verificationCode
             );
 
             // Send verification code on user email
