@@ -7,8 +7,6 @@ namespace auth_service.Configuration
         public static string WorkEmail { get; private set; }
         public static string WorkPassword { get; private set; }
 
-
-        // Метод для инициализации конфигурации
         public static void Initialize(IConfiguration configuration)
         {
             _configuration = configuration;
