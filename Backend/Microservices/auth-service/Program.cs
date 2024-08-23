@@ -1,3 +1,4 @@
+using auth_service.Configuration;
 using auth_service.Configuration.JWT;
 using auth_service.Services.Implementations;
 using auth_service.Services.Interfaces;
@@ -10,6 +11,12 @@ builder.Services.AddSwaggerGen();
 
 // Add JWT authentication
 CustomJwtConfiguration.AddCustomJwtAuthentication(builder.Services, builder.Configuration);
+
+// Add user-secrets to project
+builder.Configuration.AddUserSecrets<Program>();
+
+// Initialize dependences in static details (SD) class
+SD.Initialize(builder.Configuration);
 
 // Dependences
 builder.Services.AddScoped<UserDbContext>();

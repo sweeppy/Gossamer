@@ -20,7 +20,7 @@ namespace auth_service.Services.Implementations
             return random.Next(0, 999999).ToString("D6");
         }
 
-        public async Task<BaseResponse> ConfirmEmail(string email, string verificationCode)
+        public async Task<BaseResponse> SendEmailConfirmation(string email, string verificationCode)
         {
             throw new NotImplementedException();
         }
