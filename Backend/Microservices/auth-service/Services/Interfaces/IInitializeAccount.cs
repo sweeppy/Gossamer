@@ -7,6 +7,6 @@ namespace auth_service.Services.Interfaces
     {
         public Task<AuthenticationResponse> CreateAccount(RegisterUserRequest request);
 
-        public Task InitializeUser(int verificationCode, string email);
+        public Task InitializeUser(string email, string verificationCode);
     }
 }

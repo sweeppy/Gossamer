@@ -20,22 +20,14 @@ namespace auth_service.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task InitializeUser(string email)
+        public async Task InitializeUser(string email, string verificationCode)
         {
+            var hashedCode = "";
             User user = new User
             {
                 Email = email,
-                EmailConfirmed = false
-            };
-            _db.Users.Add(user);
-        }
-        public async Task InitializeUser(int verificationCode, string email)
-        {
-            User user = new User
-            {
-                Email = email,
-                VerificationCode = verificationCode,
-                EmailConfirmed = false
+                EmailConfirmed = false,
+                VerificationCode = hashedCode
             };
             _db.Users.Add(user);
         }

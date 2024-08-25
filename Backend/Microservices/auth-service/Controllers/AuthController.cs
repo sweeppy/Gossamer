@@ -31,7 +31,7 @@ namespace auth_service.Controllers
         }
 
         [HttpPost("verifyVcode")]
-        public async Task<IActionResult> VerifyCode([FromBody] string email, int verificationCode)
+        public async Task<IActionResult> VerifyCode([FromBody] string email, string verificationCode)
         {
             var response = await _verifyService.VerifyCode(email, verificationCode);
             if (!response.IsSuccess)

@@ -4,6 +4,7 @@ namespace auth_service.Configuration
     {
         private static IConfiguration _configuration;
 
+        // For email sending
         public static string WorkEmail { get; private set; }
         public static string WorkPassword { get; private set; }
 

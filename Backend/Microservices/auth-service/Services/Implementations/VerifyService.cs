@@ -3,7 +3,6 @@ using System.Net.Mail;
 using auth_service.Configuration;
 using auth_service.Contracts;
 using auth_service.Contracts.Verification;
-using auth_service.CustomExceptions;
 using auth_service.Services.Interfaces;
 using auth_service.src.Data;
 using auth_service.src.Models;
@@ -38,39 +37,37 @@ namespace auth_service.Services.Implementations
             }
 
             // Create Smptp client
-            var client = new SmtpClient("smtp.gmail.com", 587)
+            using (var client = new SmtpClient("smtp.gmail.com", 587))
             {
-                EnableSsl = true,
-                Credentials = new NetworkCredential(SD.WorkEmail, SD.WorkPassword)
-            };
-            // Initialize message
-            string verificationCode = GenerateVerificationCode();
-            var message = new MailMessage(
-                from: SD.WorkEmail,
-                to: email,
-                subject: "Gossamer verification code",
-                body: verificationCode
-            );
+                client.Credentials = new NetworkCredential(SD.WorkEmail, SD.WorkPassword);
+                client.EnableSsl = true;
 
-            // Send verification code on user email
-            try
-            {
-                await client.SendMailAsync(message);
-                return new VerificationCodeResponse 
+                string verificationCode = GenerateVerificationCode();
+
+                var message = new MailMessage
                 {
-                    IsSuccess = true,
-                    ResponseMessage = "Verirification code was sent successfully.",
-                    VerificationCode=verificationCode
+                    From = new MailAddress(SD.WorkEmail),
+                    Subject = "Gossamer",
+                    IsBodyHtml = true,
+                    Body = $"Your verification code is: {verificationCode}"
                 };
-            }
-            catch (Exception ex)
-            {
-                _VerifyServiceLogger.LogCritical($"Error while sending email: {ex.Message}");
-                throw;
+                message.To.Add(new MailAddress(email));
+
+                // Send verification code to the user email
+                try
+                {
+                    client.Send(message);
+                    return new VerificationCodeResponse { IsSuccess = true, VerificationCode = verificationCode };
+                }
+                catch (Exception ex)
+                {
+                    _VerifyServiceLogger.LogCritical($"Error while sending email: {ex.Message}");
+                    throw;
+                }
             }
         }
 
-        public async Task<BaseResponse> VerifyCode(string email, int verificationCode)
+        public async Task<BaseResponse> VerifyCode(string email, string verificationCode)
         {
             User user = await _db.Users.FirstAsync(u => u.Email == email);
             if (user.VerificationCode == verificationCode)
