@@ -1,5 +1,6 @@
 using auth_service.Auth.Contracts;
 using auth_service.Dto.Auth;
+using auth_service.Hash;
 using auth_service.Services.Interfaces;
 using auth_service.src.Data;
 using auth_service.src.Models;
@@ -22,7 +23,7 @@ namespace auth_service.Services.Implementations
 
         public async Task InitializeUser(string email, string verificationCode)
         {
-            var hashedCode = "";
+            var hashedCode = Hasher.Hash(verificationCode);
             User user = new User
             {
                 Email = email,
@@ -30,6 +31,7 @@ namespace auth_service.Services.Implementations
                 VerificationCode = hashedCode
             };
             _db.Users.Add(user);
+            await _db.SaveChangesAsync();
         }
 
     }

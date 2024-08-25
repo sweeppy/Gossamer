@@ -1,4 +1,5 @@
 using auth_service.Dto.Auth;
+using auth_service.Dto.Verification;
 using auth_service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,36 +10,47 @@ namespace auth_service.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IVerify _verifyService;
+        private readonly IInitializeAccount _initializeAccount;
         private readonly ILogger<AuthController> _logger;
 
         public AuthController(
             ILogger<AuthController> logger,
-            IVerify confirmEmailService)
+            IVerify confirmEmailService,
+            IInitializeAccount initializeAccount)
         {
             _logger = logger;
             _verifyService = confirmEmailService;
+            _initializeAccount = initializeAccount;
         }
 
         [HttpPost("sendVCode")]
         public async Task<IActionResult> SendEmailVerificationCode([FromBody] string email)
         {
-            var verificationCodeResponse = await _verifyService.SendEmailConfirmation(email);
-            if (!verificationCodeResponse.IsSuccess)
-            {
-                return BadRequest(verificationCodeResponse.ResponseMessage);
-            }
-            else return Ok(verificationCodeResponse.ResponseMessage);
-        }
-
-        [HttpPost("verifyVcode")]
-        public async Task<IActionResult> VerifyCode([FromBody] string email, string verificationCode)
-        {
-            var response = await _verifyService.VerifyCode(email, verificationCode);
+            var response = await _verifyService.SendEmailConfirmation(email);
             if (!response.IsSuccess)
             {
                 return BadRequest(response.ResponseMessage);
             }
-            else return Ok(response.ResponseMessage);
+            try
+            {
+                await _initializeAccount.InitializeUser(email, response.VerificationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.Message);
+            }
+            return Ok(response.ResponseMessage);
+        }
+
+        [HttpPost("verifyVcode")]
+        public async Task<IActionResult> VerifyCode([FromBody]VerifyCodeRequest request)
+        {
+            var response = await _verifyService.VerifyCode(request.email, request.verificationCode);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response.ResponseMessage);
+            }
+            return Ok(response.ResponseMessage);
         }
 
         [HttpPost("Register")]

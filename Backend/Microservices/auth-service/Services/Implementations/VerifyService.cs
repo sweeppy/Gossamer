@@ -3,6 +3,7 @@ using System.Net.Mail;
 using auth_service.Configuration;
 using auth_service.Contracts;
 using auth_service.Contracts.Verification;
+using auth_service.Hash;
 using auth_service.Services.Interfaces;
 using auth_service.src.Data;
 using auth_service.src.Models;
@@ -70,11 +71,17 @@ namespace auth_service.Services.Implementations
         public async Task<BaseResponse> VerifyCode(string email, string verificationCode)
         {
             User user = await _db.Users.FirstAsync(u => u.Email == email);
-            if (user.VerificationCode == verificationCode)
+            if (user == null)
             {
-                return new BaseResponse {IsSuccess = true, ResponseMessage="Correct code."};
+                return new BaseResponse { IsSuccess = false, ResponseMessage = "User is not found" }; 
             }
-            else return new BaseResponse {IsSuccess = false, ResponseMessage="Wrong code."};
+            if (!Hasher.VerifyHash(verificationCode, user.VerificationCode))
+            {
+                return new BaseResponse {IsSuccess = false, ResponseMessage="Wrong code."};
+            }
+            user.EmailConfirmed = true;
+            await _db.SaveChangesAsync();
+            return new BaseResponse {IsSuccess = true, ResponseMessage="Correct code."};
         }
 
         private string GenerateVerificationCode()

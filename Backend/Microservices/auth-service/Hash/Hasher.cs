@@ -1,9 +1,7 @@
-using System;
 using System.Security.Cryptography;
-using System.Text;
-namespace auth_service.Hasher
+namespace auth_service.Hash
 {
-    public class Hasher
+    public static class Hasher
     {
         public static int SaltSize = 16;
         public static int KeySize = 32;
@@ -25,7 +23,7 @@ namespace auth_service.Hasher
                     // Combine salt and hash
                     var hashBytes = new byte[SaltSize + KeySize];
                     Array.Copy(salt, 0, hashBytes, 0, SaltSize);
-                    Array.Copy(hash, 0, hashBytes, 0, KeySize);
+                    Array.Copy(hash, 0, hashBytes, SaltSize, KeySize);
                     
                     // Return value
                     return Convert.ToBase64String(hashBytes);
