@@ -14,7 +14,7 @@ namespace auth_service.Services.UserService
 
         public Task<bool> isUserExists(string email)
         {
-            if (_db.Users.Any(u => u.Email == email))
+            if (_db.Users.Any(u => u.Email == email && u.EmailConfirmed == true))
             {
                 return Task.FromResult(true);
             }

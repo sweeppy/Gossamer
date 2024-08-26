@@ -70,7 +70,7 @@ namespace auth_service.Services.Auth.Implementations
 
         public async Task<BaseResponse> VerifyCode(string email, string verificationCode)
         {
-            User user = await _db.Users.FirstAsync(u => u.Email == email);
+            User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
                 return new BaseResponse { IsSuccess = false, ResponseMessage = "User is not found" }; 

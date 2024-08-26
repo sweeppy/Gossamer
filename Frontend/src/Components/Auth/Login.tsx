@@ -1,9 +1,10 @@
 import { ChangeEvent, useState } from 'react';
 import AlternativeLogin from './AlternativeLogin';
 import { useNavigate } from 'react-router-dom';
-import { isUserExists } from '../../Scripts/Auth/IsUserExistsRequest';
+import { isUserExistsRequestAsync } from '../../Scripts/Auth/IsUserExistsRequest';
 import { isEmailValid } from '../../Scripts/Auth/ValidateEmail';
-import { SendVerificationCodeAsync } from '../../Scripts/Auth/SendVerificationCode';
+import { SendVerificationCodeRequestAsync } from '../../Scripts/Auth/SendVerificationCode';
+import { isEmailConfirmStatusSuccess } from '../../Scripts/Auth/ConfirmEmailRequest';
 
 const Login = () => {
 	// Use navigation
@@ -45,18 +46,24 @@ const Login = () => {
 			return;
 		}
 		// user exist
-		if (await isUserExists(emailText)) {
+		if (await isUserExistsRequestAsync(emailText)) {
 			setShowPasswordInput(true);
 			return;
 		}
 		//new user
-		SendVerificationCodeAsync(emailText);
+		SendVerificationCodeRequestAsync(emailText);
 		setShowVerifyInput(true);
 	};
 
 	// Verification
-	const Verify = () => {
-		navigate('/CreateAccount');
+	const [isCodeWrong, setIsCodeWrong] = useState(false);
+	const Verify = async () => {
+		const success = await isEmailConfirmStatusSuccess(emailText, verificationCodeText);
+		if (success) {
+			navigate('/CreateAccount');
+		} else {
+			setIsCodeWrong(true);
+		}
 	};
 
 	// Input error
@@ -120,6 +127,7 @@ const Login = () => {
 								onChange={handleVerificationCodeTextChange}
 							/>
 						</div>
+						{isCodeWrong && <p className="input-error fs-xxs pushFromLeft">Wrong verification code</p>}
 						<button
 							onClick={Verify}
 							data-auth

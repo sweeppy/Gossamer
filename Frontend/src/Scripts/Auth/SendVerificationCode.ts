@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const SendVerificationCodeAsync = async (email: string) => {
+export const SendVerificationCodeRequestAsync = async (email: string) => {
 	try {
 		const response = await axios.post('http://localhost:5280/api/Auth/sendVCode', email, {
 			headers: {
