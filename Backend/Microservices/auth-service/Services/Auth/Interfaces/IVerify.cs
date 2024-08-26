@@ -1,7 +1,7 @@
 using auth_service.Contracts;
 using auth_service.Contracts.Verification;
 
-namespace auth_service.Services.Interfaces
+namespace auth_service.Services.Auth.Interfaces
 {
     public interface IVerify
     {

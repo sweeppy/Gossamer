@@ -1,11 +1,11 @@
 using auth_service.Auth.Contracts;
 using auth_service.Dto.Auth;
 using auth_service.Hash;
-using auth_service.Services.Interfaces;
+using auth_service.Services.Auth.Interfaces;
 using auth_service.src.Data;
 using auth_service.src.Models;
 
-namespace auth_service.Services.Implementations
+namespace auth_service.Services.Auth.Implementations
 {
     public class InitializeAccount : IInitializeAccount
     {

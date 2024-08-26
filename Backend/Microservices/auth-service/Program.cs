@@ -1,9 +1,11 @@
 using auth_service.Configuration;
 using auth_service.Configuration.JWT;
-using auth_service.Services.Implementations;
-using auth_service.Services.Interfaces;
+using auth_service.Services.Auth.Implementations;
+using auth_service.Services.Auth.Interfaces;
+using auth_service.Services.UserService;
 using auth_service.src.Data;
 using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,19 @@ builder.Services.AddScoped<IVerify, VerifyService>();
 
 builder.Services.AddScoped<IInitializeAccount, InitializeAccount>();
 
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Add Cors
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(options =>
+    {
+        options.WithOrigins("http://localhost:5173")
+            .SetIsOriginAllowedToAllowWildcardSubdomains()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 
 var app = builder.Build();
@@ -45,6 +60,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthentication();
 

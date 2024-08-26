@@ -4,13 +4,13 @@ using auth_service.Configuration;
 using auth_service.Contracts;
 using auth_service.Contracts.Verification;
 using auth_service.Hash;
-using auth_service.Services.Interfaces;
+using auth_service.Services.Auth.Interfaces;
 using auth_service.src.Data;
 using auth_service.src.Models;
 using auth_service.Validations;
 using Microsoft.EntityFrameworkCore;
 
-namespace auth_service.Services.Implementations
+namespace auth_service.Services.Auth.Implementations
 {
     public class VerifyService : IVerify
     {

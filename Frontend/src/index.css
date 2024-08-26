@@ -19,6 +19,8 @@
 	--clr-white: #f8eded;
 	--clr--white-hover: #d8cece;
 
+	--clr-error: #ff6969;
+
 	--fw-regular: 400;
 	--fw-semi-bold: 500;
 	--fw-bold: 700;
@@ -260,7 +262,7 @@ article {
 
 .fadeIn {
 	opacity: 0;
-	animation: fadeIn 1s ease-in-out forwards;
+	animation: fadeIn 0.8s ease-in-out forwards;
 }
 
 .fadeInTopSlide {
@@ -902,4 +904,9 @@ article {
 .img-change:hover,
 .img-change:focus {
 	box-shadow: 0 0.5em 3em -0.5em var(--clr-text);
+}
+
+.input-error {
+	padding-left: var(--size-100);
+	color: var(--clr-error);
 }

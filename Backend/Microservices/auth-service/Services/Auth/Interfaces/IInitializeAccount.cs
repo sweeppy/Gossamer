@@ -1,7 +1,7 @@
 using auth_service.Auth.Contracts;
 using auth_service.Dto.Auth;
 
-namespace auth_service.Services.Interfaces
+namespace auth_service.Services.Auth.Interfaces
 {
     public interface IInitializeAccount
     {

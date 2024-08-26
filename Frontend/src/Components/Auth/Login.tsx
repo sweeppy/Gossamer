@@ -1,17 +1,20 @@
 import { ChangeEvent, useState } from 'react';
 import AlternativeLogin from './AlternativeLogin';
 import { useNavigate } from 'react-router-dom';
+import { isEmailValid } from './ValidateEmail';
+import axios from 'axios';
 
 const Login = () => {
 	// Use navigation
 	const navigate = useNavigate();
 
-	// Email input logic
+	// Email input
 	const [emailText, setEmailText] = useState('');
 	const handleEmailTextChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setEmailText(e.target.value);
-		if (verify || showPasswordInput) {
-			setVerify(false);
+		setShowInputError(false);
+		if (showVerifyInput || showPasswordInput) {
+			setShowVerifyInput(false);
 			setShowPasswordInput(false);
 			setVerificationCodeText('');
 			setPasswordText('');
@@ -19,31 +22,46 @@ const Login = () => {
 	};
 
 	// Check email in db
-	const isEmailExists = (email: string) => {
-		return false;
+	const isUserExists = async (email: string) => {
+		try {
+			const response = await axios.post('http://localhost:5280/api/Auth/isUserExist', email, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			console.log(response.data);
+			return response.data;
+		} catch (error: any) {
+			console.error(error.response.data);
+			return null;
+		}
 	};
 
-	// Verification input logic
+	// Verification input
 	const [verificationCodeText, setVerificationCodeText] = useState('');
 	const handleVerificationCodeTextChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setVerificationCodeText(e.target.value);
 	};
 
-	// Password logic
+	// Password input
 	const [passwordText, setPasswordText] = useState('');
 	const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setPasswordText(e.target.value);
 	};
 
-	//Continue logic
-	const [verify, setVerify] = useState(false);
+	// Show continue button
+	const [showVerifyInput, setShowVerifyInput] = useState(false);
 	const [showPasswordInput, setShowPasswordInput] = useState(false);
 
-	const handleContinueClick = () => {
-		if (isEmailExists(emailText)) {
-			setShowPasswordInput(true);
+	const handleContinueClick = async () => {
+		if (!isEmailValid(emailText)) {
+			setShowInputError(true);
 		} else {
-			setVerify(true);
+			if (await isUserExists(emailText)) {
+				setShowPasswordInput(true);
+			} else {
+				setShowVerifyInput(true);
+			}
 		}
 	};
 
@@ -51,6 +69,9 @@ const Login = () => {
 	const Verify = () => {
 		navigate('/CreateAccount');
 	};
+
+	// Input error
+	const [showInputError, setShowInputError] = useState(false);
 
 	return (
 		<>
@@ -80,23 +101,24 @@ const Login = () => {
 								onChange={handleEmailTextChange}
 							/>
 						</div>
+						{showInputError && <p className="input-error fs-xxs pushFromLeft">Invalid email</p>}
 					</div>
 					<button
 						data-auth
 						className={`
 						${emailText ? 'light' : 'disabled'}
 						button deep-bottom fw-semi-bold
-						${verify || showPasswordInput ? 'display-none' : ''}`}
+						${showVerifyInput || showPasswordInput ? 'display-none' : ''}`}
 						style={{ width: '100%' }}
 						onClick={handleContinueClick}
 						disabled={!emailText}
 					>
 						Continue
 					</button>
-					<div className={`fadeInLeftSlide ${verify ? '' : 'display-none'}`}>
+					<div className={`fadeInLeftSlide ${showVerifyInput ? '' : 'display-none'}`}>
 						<p className="fs-xxs align padding-block-500" style={{ opacity: 0.4, textAlign: 'center' }}>
-							Please verify your email to continue. Check your inbox for a verification code and enter it
-							below.
+							Please showVerifyInput your email to continue. Check your inbox for a verification code and
+							enter it below.
 						</p>{' '}
 						<label className="label">Verification code</label>
 						<div className="input-container">
