@@ -1,8 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 import AlternativeLogin from './AlternativeLogin';
 import { useNavigate } from 'react-router-dom';
-import { isEmailValid } from './ValidateEmail';
-import axios from 'axios';
+import { isUserExists } from '../../Scripts/Auth/IsUserExistsRequest';
+import { isEmailValid } from '../../Scripts/Auth/ValidateEmail';
+import { SendVerificationCodeAsync } from '../../Scripts/Auth/SendVerificationCode';
 
 const Login = () => {
 	// Use navigation
@@ -18,22 +19,6 @@ const Login = () => {
 			setShowPasswordInput(false);
 			setVerificationCodeText('');
 			setPasswordText('');
-		}
-	};
-
-	// Check email in db
-	const isUserExists = async (email: string) => {
-		try {
-			const response = await axios.post('http://localhost:5280/api/Auth/isUserExist', email, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-			console.log(response.data);
-			return response.data;
-		} catch (error: any) {
-			console.error(error.response.data);
-			return null;
 		}
 	};
 
@@ -54,15 +39,19 @@ const Login = () => {
 	const [showPasswordInput, setShowPasswordInput] = useState(false);
 
 	const handleContinueClick = async () => {
+		// incorrect email
 		if (!isEmailValid(emailText)) {
 			setShowInputError(true);
-		} else {
-			if (await isUserExists(emailText)) {
-				setShowPasswordInput(true);
-			} else {
-				setShowVerifyInput(true);
-			}
+			return;
 		}
+		// user exist
+		if (await isUserExists(emailText)) {
+			setShowPasswordInput(true);
+			return;
+		}
+		//new user
+		SendVerificationCodeAsync(emailText);
+		setShowVerifyInput(true);
 	};
 
 	// Verification
