@@ -89,10 +89,16 @@ namespace auth_service.Controllers
         }
 
         [HttpPost("PasswordAuth")]
-        public async Task<IActionResult> SignInByPassword([FromBody] EmailAndDataRequest request)
+        public async Task<IActionResult> PasswordLogin([FromBody] EmailAndDataRequest request)
         {
-            // TODO Implement password login
-            return NoContent();
+            var response = await _verifyService.LogInByPassword(request.email, request.data);
+            switch (response.IsSuccess)
+            {
+                case true:
+                    return Ok(response.ResponseMessage);
+                case false:
+                    return BadRequest(response.ResponseMessage);
+            }
         }
     }
 }

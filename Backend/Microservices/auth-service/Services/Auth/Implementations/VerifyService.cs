@@ -14,14 +14,41 @@ namespace auth_service.Services.Auth.Implementations
 {
     public class VerifyService : IVerify
     {
-        private readonly ILogger<VerifyService> _VerifyServiceLogger;
+        private readonly ILogger<VerifyService> _logger;
 
         private readonly UserDbContext _db;
 
         public VerifyService(ILogger<VerifyService> VerifyServiceLogger, UserDbContext db)
         {
-            _VerifyServiceLogger = VerifyServiceLogger;
+            _logger = VerifyServiceLogger;
             _db = db;
+        }
+
+        public async Task<BaseResponse> LogInByPassword(string email, string password)
+        {
+            User user;
+            try
+            {
+                user = await _db.Users.FirstAsync(u => u.Email == email);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError($"Incorrect email: {ex.Message}; \n Wrong email:{email}");
+                return new BaseResponse { IsSuccess = false};
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Db expction in IVerify: {ex.Message}");
+                return new BaseResponse { IsSuccess = false};
+            }
+            bool isPasswordCorrect = Hasher.VerifyHash(password, user.Password);
+            switch (isPasswordCorrect)  
+            {
+                case true:
+                    return new BaseResponse { IsSuccess = isPasswordCorrect, ResponseMessage="Welcome back!" };
+                case false:
+                    return new BaseResponse { IsSuccess = isPasswordCorrect, ResponseMessage="Wrong password."};
+            }
         }
 
         public async Task<VerificationCodeResponse> SendEmailConfirmation(string email)
@@ -57,12 +84,12 @@ namespace auth_service.Services.Auth.Implementations
                 // Send verification code to the user email
                 try
                 {
-                    client.Send(message);
+                    await client.SendMailAsync(message);
                     return new VerificationCodeResponse { IsSuccess = true, VerificationCode = verificationCode };
                 }
                 catch (Exception ex)
                 {
-                    _VerifyServiceLogger.LogCritical($"Error while sending email: {ex.Message}");
+                    _logger.LogCritical($"Error while sending email: {ex.Message}");
                     throw;
                 }
             }
@@ -70,10 +97,20 @@ namespace auth_service.Services.Auth.Implementations
 
         public async Task<BaseResponse> VerifyCode(string email, string verificationCode)
         {
-            User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null)
+            User user;
+            try
             {
-                return new BaseResponse { IsSuccess = false, ResponseMessage = "User is not found" }; 
+                user = await _db.Users.FirstAsync(u => u.Email == email);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogError($"Incorrect email: {ex.Message}; \n Wrong email:{email}");
+                return new BaseResponse { IsSuccess = false, ResponseMessage="Incorrect email"};
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Db expction in IVerify: {ex.Message}");
+                return new BaseResponse { IsSuccess = false, ResponseMessage="Something went wrong"};
             }
             if (!Hasher.VerifyHash(verificationCode, user.VerificationCode))
             {

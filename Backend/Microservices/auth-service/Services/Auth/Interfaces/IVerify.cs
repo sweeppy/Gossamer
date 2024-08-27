@@ -8,5 +8,7 @@ namespace auth_service.Services.Auth.Interfaces
         public Task<VerificationCodeResponse> SendEmailConfirmation(string email);
 
         public Task<BaseResponse> VerifyCode(string email, string verificationCode);
+
+        public Task<BaseResponse> LogInByPassword(string email, string password);
     }
 }
