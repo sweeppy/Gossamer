@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace auth_service.Configuration.JWT
+namespace auth_service.Services.JWT
 {
     public class JwtService : IJwtService
     {
@@ -13,14 +13,13 @@ namespace auth_service.Configuration.JWT
             _configuration = configuration;
         }
 
-        public string GenerateToken(string username, string email)
+        public string GenerateToken(string email)
         {
-            var SignKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSetting:SignKey").Value));
+            var SignKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSettings:SignKey").Value));
             var credentials = new SigningCredentials(SignKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, username),
                 new Claim(ClaimTypes.Email, email),
             };
 

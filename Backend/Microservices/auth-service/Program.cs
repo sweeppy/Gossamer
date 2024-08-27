@@ -3,6 +3,7 @@ using auth_service.Configuration.GoogleOAuth;
 using auth_service.Configuration.JWT;
 using auth_service.Services.Auth.Implementations;
 using auth_service.Services.Auth.Interfaces;
+using auth_service.Services.JWT;
 using auth_service.Services.UserService;
 using auth_service.src.Data;
 using Microsoft.OpenApi.Models;

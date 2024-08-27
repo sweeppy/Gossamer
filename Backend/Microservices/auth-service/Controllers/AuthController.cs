@@ -1,6 +1,7 @@
-using auth_service.Dto.Auth;
+
 using auth_service.Dto.Verification;
 using auth_service.Services.Auth.Interfaces;
+using auth_service.Services.JWT;
 using auth_service.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,8 @@ namespace auth_service.Controllers
         private readonly IVerify _verifyService;
         private readonly IInitializeAccount _initializeAccount;
 
+        private readonly IJwtService _jwtService;
+
         private readonly IUserService _userService;
         private readonly ILogger<AuthController> _logger;
 
@@ -20,12 +23,14 @@ namespace auth_service.Controllers
             ILogger<AuthController> logger,
             IVerify confirmEmailService,
             IInitializeAccount initializeAccount,
-            IUserService userService)
+            IUserService userService,
+            IJwtService jwtService)
         {
             _logger = logger;
             _verifyService = confirmEmailService;
             _initializeAccount = initializeAccount;
             _userService = userService;
+            _jwtService = jwtService;
         }
 
         [HttpPost("sendVCode")]
@@ -48,14 +53,24 @@ namespace auth_service.Controllers
         }
 
         [HttpPost("verifyVcode")]
-        public async Task<IActionResult> VerifyCode([FromBody]VerifyCodeRequest request)
+        public async Task<IActionResult> VerifyCode([FromBody]EmailAndDataRequest request)
         {
-            var response = await _verifyService.VerifyCode(request.email, request.verificationCode);
+            var response = await _verifyService.VerifyCode(request.email, request.data);
             if (!response.IsSuccess)
             {
                 return BadRequest(response.ResponseMessage);
             }
-            return Ok(response.ResponseMessage);
+            try
+            {
+                var token =_jwtService.GenerateToken(request.email);
+                return Ok(token);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Erorr was occurred while generating jwt token: {ex.Message}");
+                return BadRequest("Generate token error");
+            }
+
         }
 
         [HttpPost("isUserExist")]
@@ -73,10 +88,11 @@ namespace auth_service.Controllers
             }
         }
 
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserRequest requestBody)
+        [HttpPost("PasswordAuth")]
+        public async Task<IActionResult> SignInByPassword([FromBody] EmailAndDataRequest request)
         {
-            return await Task.FromResult(NoContent());
+            // TODO Implement password login
+            return NoContent();
         }
     }
 }
