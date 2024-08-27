@@ -1,4 +1,5 @@
 using auth_service.Configuration;
+using auth_service.Configuration.GoogleOAuth;
 using auth_service.Configuration.JWT;
 using auth_service.Services.Auth.Implementations;
 using auth_service.Services.Auth.Interfaces;
@@ -17,11 +18,13 @@ builder.Services.AddSwaggerGen(c =>
 
 // Add JWT authentication
 CustomJwtConfiguration.AddCustomJwtAuthentication(builder.Services, builder.Configuration);
+// Add Google OAuth 2.0 authentication
+GoogleAuthentication.AddGoogleAuthentication(builder.Services);
 
 // Add user-secrets to project
 builder.Configuration.AddUserSecrets<Program>();
 
-// Initialize dependences in static details (SD) class
+// Initialize fields in static details (SD) class
 SD.Initialize(builder.Configuration);
 
 // Dependency injection
