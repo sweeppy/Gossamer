@@ -7,6 +7,16 @@ namespace auth_service.Hash
         public static int KeySize = 32;
         public static int Iterations = 10000;
 
+        private static readonly ILogger _logger;
+
+        static Hasher()
+        {
+            _logger = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            }).CreateLogger("HasherLogger");
+        }
+
         public static string Hash(string data)
         {
             // Create salt
@@ -33,8 +43,17 @@ namespace auth_service.Hash
 
         public static bool VerifyHash(string data, string hashedData)
         {
+            byte[] hashBytes;
             // Get bytes
-            var hashBytes = Convert.FromBase64String(hashedData);
+            try
+            {
+                hashBytes = Convert.FromBase64String(hashedData);
+            }
+            catch (FormatException ex)
+            {
+                _logger.LogCritical($"Error was occurred while getting hash data from db: {ex.Message}");
+                return false;
+            }
 
             //Get salt
             var salt = new byte[SaltSize];
