@@ -24,6 +24,11 @@ namespace auth_service.Services.Auth.Implementations
             _db = db;
         }
 
+        public BaseResponse GoogleLogin()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<BaseResponse> LogInByPassword(string email, string password)
         {
             User user;
@@ -41,6 +46,7 @@ namespace auth_service.Services.Auth.Implementations
                 _logger.LogCritical($"Db expction in IVerify: {ex.Message}");
                 return new BaseResponse { IsSuccess = false};
             }
+
             bool isPasswordCorrect = Hasher.VerifyHash(password, user.Password);
             switch (isPasswordCorrect)  
             {
@@ -120,6 +126,8 @@ namespace auth_service.Services.Auth.Implementations
             await _db.SaveChangesAsync();
             return new BaseResponse {IsSuccess = true, ResponseMessage="Correct code."};
         }
+
+        
 
         private string GenerateVerificationCode()
         {

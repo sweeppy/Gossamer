@@ -10,5 +10,7 @@ namespace auth_service.Services.Auth.Interfaces
         public Task<BaseResponse> VerifyCode(string email, string verificationCode);
 
         public Task<BaseResponse> LogInByPassword(string email, string password);
+
+        public BaseResponse GoogleLogin();
     }
 }

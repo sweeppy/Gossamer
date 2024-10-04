@@ -51,7 +51,7 @@ const Navigation = () => {
 		<header className="primary-header padding-block-300 top">
 			<div className="container">
 				<div className="nav-wrapper">
-					<a href="#">
+					<a href="/">
 						<img src="./images/logo-mini.svg" alt="Gossamer" />
 					</a>
 					<button
@@ -62,7 +62,7 @@ const Navigation = () => {
 					<nav className="primary-navigation">
 						<ul role="list" className="nav-list fadeInTopSlide" id="primary-navigation">
 							<li>
-								<a href="#">Updates</a>
+								<a href="/Updates">Updates</a>
 							</li>
 							<li>
 								<a href="#">Sponsors</a>
