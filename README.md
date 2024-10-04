@@ -3,6 +3,7 @@ Gossamer is a dynamic platform designed to connect people through shared activit
 
 ## Technology Stack
 - **Backend:** ASP .NET CORE.
+- **Authentication:** JWT token + Google OAuth 2.0
 - **Frontend:** Vite (with React)
 - **Database:** Postgresql (running in Docker)
 - **Development Tools:** Azure Data Studio (for database management)
