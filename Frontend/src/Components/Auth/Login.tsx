@@ -10,11 +10,14 @@ const Login = () => {
 	// Use navigation
 	const navigate = useNavigate();
 
+	// Email input error
+	const [isEmailErrorVisible, setIsEmailErrorVisible] = useState(false);
+
 	// Email input
 	const [emailText, setEmailText] = useState('');
 	const handleEmailTextChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setEmailText(e.target.value);
-		setShowInputError(false);
+		setIsEmailErrorVisible(false);
 		if (showVerifyInput || showPasswordInput) {
 			setShowVerifyInput(false);
 			setShowPasswordInput(false);
@@ -42,7 +45,7 @@ const Login = () => {
 	const handleContinueClick = async () => {
 		// incorrect email
 		if (!isEmailValid(emailText)) {
-			setShowInputError(true);
+			setIsEmailErrorVisible(true);
 			return;
 		}
 		// user exist
@@ -65,9 +68,6 @@ const Login = () => {
 			setIsCodeWrong(true);
 		}
 	};
-
-	// Input error
-	const [showInputError, setShowInputError] = useState(false);
 
 	return (
 		<>
@@ -97,7 +97,7 @@ const Login = () => {
 								onChange={handleEmailTextChange}
 							/>
 						</div>
-						{showInputError && <p className="input-error fs-xxs pushFromLeft">Invalid email</p>}
+						{isEmailErrorVisible && <p className="input-error fs-xxs pushFromLeft">Invalid email</p>}
 					</div>
 					<button
 						data-auth
