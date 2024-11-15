@@ -424,7 +424,7 @@ article {
 	left: 0;
 	right: 0;
 	width: 100%;
-	height: var(---primary-nav-height);
+	height: var(--primary-nav-height);
 	z-index: 1000;
 	background-color: var(--clr-primary-accent);
 	border-bottom: 0.15rem solid var(--clr-black);

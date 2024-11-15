@@ -17,6 +17,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gossamer API", Version = "v1" });
 });
 
+// Initialize fields in static details (SD) class
+SD.Initialize(builder.Configuration);
 // Add JWT authentication
 CustomJwtConfiguration.AddCustomJwtAuthentication(builder.Services, builder.Configuration);
 // Add Google OAuth 2.0 authentication
@@ -25,8 +27,7 @@ GoogleAuthentication.AddGoogleAuthentication(builder.Services);
 // Add user-secrets to project
 builder.Configuration.AddUserSecrets<Program>();
 
-// Initialize fields in static details (SD) class
-SD.Initialize(builder.Configuration);
+
 
 // Dependency injection
 builder.Services.AddScoped<UserDbContext>();

@@ -113,8 +113,8 @@ const Login = () => {
 					</button>
 					<div className={`fadeInLeftSlide ${showVerifyInput ? '' : 'display-none'}`}>
 						<p className="fs-xxs align padding-block-500" style={{ opacity: 0.4, textAlign: 'center' }}>
-							Please showVerifyInput your email to continue. Check your inbox for a verification code and
-							enter it below.
+							Please confirm your email to continue. Check your inbox for a verification code and enter it
+							below.
 						</p>{' '}
 						<label className="label">Verification code</label>
 						<div className="input-container">
